@@ -1,11 +1,13 @@
 import { PurpleContainer, Logo, Form, TextInput, TextLabel, ConfirmationButton, ContainerLink, Loading } from "./Common";
 import { BASE_URL } from "./constants";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const SignUp = () => {
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ username: "", email: "", password: "", repeat_password: "" });
+    const navigate = useNavigate();
 
     const handleForm = e => {
         const { name, value } = e.target;
@@ -18,6 +20,7 @@ export const SignUp = () => {
             await axios.post(`${BASE_URL}/sign-up`, form);
             setLoading(false);
             alert("Usuário cadastrado com sucesso!");
+            navigate("/SignIn");
         } catch (err) {
             alert(err.response.data.message);
             setLoading(false);
