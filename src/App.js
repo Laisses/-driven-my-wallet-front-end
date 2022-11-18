@@ -11,7 +11,16 @@ import { Outflow } from "./components/Outflow";
 
 
 export const App = () => {
-  return "oi"
+  return (
+    <AppContext.Provider>
+      <BrowserRouter>
+        <GlobalStyle />
+        <Routes>
+          <Route path="/SignUp" element={<SignUp />} />
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
+  )
 };
 
 
