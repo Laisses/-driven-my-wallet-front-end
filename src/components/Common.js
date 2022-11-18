@@ -39,6 +39,9 @@ export const TextInput = styled.input`
     &:focus {
         outline: none;
     }
+    &:disabled {
+        background-color: #edeef2;
+    }
 `;
 
 export const TextLabel = styled.label`
