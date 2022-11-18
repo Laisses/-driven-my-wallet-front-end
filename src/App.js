@@ -17,6 +17,7 @@ export const App = () => {
         <GlobalStyle />
         <Routes>
           <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/SignIn" element={<SignIn/>} />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
