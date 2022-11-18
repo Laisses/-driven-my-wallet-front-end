@@ -89,4 +89,10 @@ const Loader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 326px;
+    height: 42px;
+    margin-top: 6px;
+    background-color: #A328D6;
+    border: none;
+    border-radius: 5px;
 `;
