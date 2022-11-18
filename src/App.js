@@ -11,13 +11,24 @@ import { Outflow } from "./components/Outflow";
 
 
 export const App = () => {
+  const userProfile = {
+    username: "",
+    email: "",
+    password: "",
+    token: "",
+  };
+
+  const [user, setUser] = useState(userProfile);
+
   return (
-    <AppContext.Provider>
+    <AppContext.Provider
+      value={{ user, setUser }}
+    >
       <BrowserRouter>
         <GlobalStyle />
         <Routes>
           <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/SignIn" element={<SignIn/>} />
+          <Route path="/SignIn" element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
