@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { RotatingLines } from "react-loader-spinner";
 
 export const PurpleContainer = styled.div`
     height: 100vh;
@@ -65,4 +66,24 @@ export const ContainerLink = styled(Link)`
     text-decoration: none;
     color: #ffffff;
     margin-top: 32px;
+`;
+
+export const Loading = () => {
+    return (
+        <Loader>
+            <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="36"
+                visible={true}
+            />
+        </Loader>
+    );
+};
+
+const Loader = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
