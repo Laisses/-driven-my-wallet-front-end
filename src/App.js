@@ -13,8 +13,6 @@ import { Outflow } from "./components/Outflow";
 export const App = () => {
   const userProfile = {
     username: "",
-    email: "",
-    password: "",
     token: "",
   };
 
