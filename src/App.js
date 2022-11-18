@@ -27,6 +27,7 @@ export const App = () => {
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/transactions" element={<Transactions />} />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
