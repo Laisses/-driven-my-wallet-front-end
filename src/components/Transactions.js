@@ -2,7 +2,7 @@ import { BASE_URL } from "./constants";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./context";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import { Container, TransactionLoading } from "./Common";
 import logout from "../assets/images/logout.png";
@@ -10,10 +10,11 @@ import decrease from "../assets/images/decrease.png";
 import increase from "../assets/images/increase.png";
 
 export const Transactions = () => {
-    const { user } = useContext(AppContext);
+    const { user, setTransactionId } = useContext(AppContext);
     const [transactions, setTransactions] = useState(undefined);
     const [balanceStatus, setBalanceStatus] = useState("");
     const [balance, setBalance] = useState(undefined);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getTransactions();
@@ -30,16 +31,21 @@ export const Transactions = () => {
         };
 
         try {
-            const dbTransactions = await axios.get(`${BASE_URL}/transactions`, config);
-            setTransactions(dbTransactions.data);
+            const res = await axios.get(`${BASE_URL}/transactions`, config);
+            setTransactions(res.data);
         } catch(err) {
             alert(err.response.data.message);
         }
     };
 
-    const ListOfTransactions = ({ title, amount, date, type }) => {
+    const chooseTransaction = id => {
+        setTransactionId(id);
+        navigate(`/transactions/${id}`);
+    };
+
+    const ListOfTransactions = ({ id, title, amount, date, type }) => {
         return (
-            <ListItem>
+            <ListItem onClick={() => chooseTransaction(id)}>
                 <Purchase>
                     <Date>{date}</Date>
                     <Title>{title}</Title>
@@ -50,7 +56,6 @@ export const Transactions = () => {
     };
 
     const Purchases = () => {
-        console.log(transactions)
         if (transactions === undefined) {
             return <TransactionLoading />
         } else if (transactions.length === 0) {
@@ -63,7 +68,8 @@ export const Transactions = () => {
                 <>
                     <ul>
                         {transactions.map(t => <ListOfTransactions
-                            key={t.title}
+                            key={t._id}
+                            id={t._id}
                             title={t.title}
                             amount={t.amount}
                             date={t.date}
