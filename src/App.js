@@ -16,10 +16,11 @@ export const App = () => {
   };
 
   const [user, setUser] = useState(userProfile);
+  const [transactionId, setTransactionId] = useState("");
 
   return (
     <AppContext.Provider
-      value={{ user, setUser }}
+      value={{ user, setUser, transactionId, setTransactionId }}
     >
       <BrowserRouter>
         <GlobalStyle />
