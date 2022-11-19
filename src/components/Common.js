@@ -13,6 +13,16 @@ export const PurpleContainer = styled.div`
     justify-content: center;
 `;
 
+export const Container = styled.div`
+    height: 100vh;
+    background-color: #8C11BE;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-family: 'Raleway', sans-serif;
+    display: flex;
+    flex-direction: column;
+`;
+
 export const Logo = styled.h1`
     font-family: 'Saira Stencil One', cursive;
     font-size: 32px;
@@ -71,9 +81,9 @@ export const ContainerLink = styled(Link)`
     margin-top: 32px;
 `;
 
-export const Loading = () => {
+export const SmallButtonLoading = () => {
     return (
-        <Loader>
+        <SmallButtonLoader>
             <RotatingLines
                 strokeColor="white"
                 strokeWidth="5"
@@ -81,11 +91,11 @@ export const Loading = () => {
                 width="36"
                 visible={true}
             />
-        </Loader>
+        </SmallButtonLoader>
     );
 };
 
-const Loader = styled.div`
+const SmallButtonLoader = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,4 +105,24 @@ const Loader = styled.div`
     background-color: #A328D6;
     border: none;
     border-radius: 5px;
+`;
+
+export const TransactionLoading = () => {
+    return (
+        <TransactionLoader>
+            <RotatingLines
+                strokeColor="lightgray"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="96"
+                visible={true}
+            />
+        </TransactionLoader>
+    );
+};
+
+const TransactionLoader = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
 `;
