@@ -1,4 +1,4 @@
-import { PurpleContainer, Logo, Form, TextInput, TextLabel, ConfirmationButton, ContainerLink, Loading } from "./Common";
+import { PurpleContainer, Logo, Form, TextInput, TextLabel, ConfirmationButton, ContainerLink, SmallButtonLoading } from "./Common";
 import { BASE_URL } from "./constants";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -77,7 +77,7 @@ export const SignUp = () => {
                 />
                 {!loading
                     ? <ConfirmationButton onClick={createUser}>Cadastrar</ConfirmationButton>
-                    : <Loading />
+                    : <SmallButtonLoading />
                 }
             </Form>
             <ContainerLink to="/sign-in">Já tem uma conta? Entre agora!</ContainerLink>

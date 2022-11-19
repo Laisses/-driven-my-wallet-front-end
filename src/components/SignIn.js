@@ -1,4 +1,4 @@
-import { PurpleContainer, Logo, Form, TextInput, TextLabel, ConfirmationButton, ContainerLink, Loading } from "./Common";
+import { PurpleContainer, Logo, Form, TextInput, TextLabel, ConfirmationButton, ContainerLink, SmallButtonLoading } from "./Common";
 import { BASE_URL } from "./constants";
 import { useContext, useState } from "react";
 import { AppContext } from "./context";
@@ -61,7 +61,7 @@ export const SignIn = () => {
                 />
                 {!loading
                     ? <ConfirmationButton onClick={signIn}>Entrar</ConfirmationButton>
-                    : <Loading />
+                    : <SmallButtonLoading />
                 }
             </Form>
             <ContainerLink to="/sign-up">Primeira vez? Cadastre-se!</ContainerLink>
