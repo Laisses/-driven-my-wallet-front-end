@@ -12,8 +12,8 @@ import { Outflow } from "./components/Outflow";
 
 export const App = () => {
   const userProfile = {
-    username: "",
-    token: "",
+    username: "Anita",
+    token: "7d00b82c-0c94-469e-85f1-535672e3fa1b",
   };
 
   const [user, setUser] = useState(userProfile);
