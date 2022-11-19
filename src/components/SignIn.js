@@ -25,7 +25,7 @@ export const SignIn = () => {
                 token: res.data.token
             };
             setLoading(false);
-            setUser(user);
+            //setUser(user);
             navigate("/transactions");
         } catch (err) {
             alert(err.response.data.message);
