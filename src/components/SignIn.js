@@ -20,12 +20,12 @@ export const SignIn = () => {
         setLoading(true);
         try {
             const res = await axios.post(`${BASE_URL}/sign-in`, form);
-            console.log(res.data)
-            setLoading(false);
-            setUser({
+            const user = {
                 username: res.data.username,
                 token: res.data.token
-            });
+            };
+            setLoading(false);
+            setUser(user);
             navigate("/transactions");
         } catch (err) {
             alert(err.response.data.message);
