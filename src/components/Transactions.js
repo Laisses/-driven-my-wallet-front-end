@@ -2,10 +2,13 @@ import { BASE_URL } from "./constants";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./context";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import { Container, TransactionLoading } from "./Common";
 import logout from "../assets/images/logout.png";
+import decrease from "../assets/images/decrease.png";
+import increase from "../assets/images/increase.png";
+
 
 /* const mockTransactions = [
     {
@@ -42,7 +45,9 @@ export const Transactions = () => {
     const [balance, setBalance] = useState(undefined);
 
     useEffect(() => {
-        calculateBottomLine();
+        if (transactions) {
+            calculateBottomLine();
+        }
     }, []);
 
     const ListOfTransactions = ({ title, amount, date, type }) => {
@@ -62,7 +67,8 @@ export const Transactions = () => {
             return <TransactionLoading />
         } else if (transactions.length === 0) {
             return (
-                <p>Não tem nada</p>
+                <Message>Não há registros de
+                    entrada ou saída</Message>
             );
         } else if (transactions) {
             return (
@@ -125,6 +131,22 @@ export const Transactions = () => {
             <Main>
                 <Purchases />
             </Main>
+            <Footer>
+                <Button to="/add-inflow">
+                    <img
+                        src={increase}
+                        alt="ícone de adição"
+                    />
+                    <div>Nova entrada</div>
+                </Button>
+                <Button to="/add-outflow">
+                    <img
+                        src={decrease}
+                        alt="ícone de subtração"
+                    />
+                    <div>Nova saída</div>
+                </Button>
+            </Footer>
         </Container>
     );
 };
@@ -158,6 +180,13 @@ const Main = styled.div`
     margin-top: 23px;
     background-color: #ffffff;
     border-radius: 5px;
+`;
+
+const Message = styled.p`
+    font-size: 20px;
+    text-align: center;
+    margin: auto 73px;
+    color : #868686;
 `;
 
 const ListItem = styled.li`
@@ -201,3 +230,32 @@ const Balance = styled.div`
     color: ${props => props.status === "positive" ? "#0ec20c" : "#f50a0a"};
 `;
 
+const Footer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const Button = styled(Link)`
+    width: 155px;
+    height: 115px;
+    margin-top: 15px;
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #A328D6;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    img {
+        width: 25px;
+        height: 25px;
+    }
+    div {
+        width: 64px;
+    }
+`;
