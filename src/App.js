@@ -9,7 +9,6 @@ import { Transaction } from "./components/Transaction";
 import { Inflow } from "./components/Inflow";
 import { Outflow } from "./components/Outflow";
 
-
 export const App = () => {
   const userProfile = {
     username: "Anita",
@@ -29,10 +28,10 @@ export const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/transaction" element={<Transaction />}/>
+          <Route path="/add-inflow" element={ <Inflow />} />
+          <Route path="/add-outflow" element={<Outflow />} />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
   )
 };
-
-
