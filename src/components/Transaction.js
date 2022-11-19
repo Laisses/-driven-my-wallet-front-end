@@ -9,19 +9,28 @@ import backIcon from "../assets/images/backIcon.png";
 import deleteIcon from "../assets/images/deleteIcon.png";
 import editIcon from "../assets/images/editIcon.png";
 
-const mockTransactions =
-{
-    id: 1,
-    title: "Mercado",
-    amount: "325,80",
-    date: "18/11",
-    description: "Compras no Carrefour",
-    type: "outflow"
-};
-
 export const Transaction = () => {
-    const { user } = useContext(AppContext);
-    const [transaction, setTransaction] = useState(mockTransactions);
+    const { user, transactionId } = useContext(AppContext);
+    const [transaction, setTransaction] = useState(undefined);
+
+    useEffect(() => {
+        getTransaction();
+    }, []);
+
+    const getTransaction = async () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        };
+
+        try {
+            const res = await axios.get(`${BASE_URL}/transactions/${transactionId}`, config);
+            setTransaction(res.data);
+        } catch (err) {
+            alert(err.response.data.message);
+        }
+    }
 
     const selectType = (type) => {
         if (type === "outflow") {
@@ -31,10 +40,28 @@ export const Transaction = () => {
         }
     };
 
+    const MainTransaction = () => {
+        if (transaction) {
+            return (
+                <>
+                    <Title>{transaction.title}</Title>
+                    <Date>{transaction.date}</Date>
+                    <Amount>R$ {transaction.amount}</Amount>
+                    <Description>{transaction.description}</Description>
+                    <Type>
+                        Tipo de operação:{selectType(transaction.type)}
+                    </Type>
+                </>
+            );
+        } else {
+            return <TransactionLoading />
+        }
+    };
+
     return (
         <Container>
             <Header>
-                <HeaderImg>
+                <HeaderImg to="/transactions">
                     <BackIcon
                         src={backIcon}
                         alt="ícone de voltar"
@@ -42,13 +69,7 @@ export const Transaction = () => {
                 </HeaderImg>
             </Header>
             <Main>
-                <Title>{transaction.title}</Title>
-                <Date>{transaction.date}</Date>
-                <Amount>R$ {transaction.amount}</Amount>
-                <Description>{transaction.description}</Description>
-                <Type>
-                    Tipo de operação:{selectType(transaction.type)}
-                </Type>
+                <MainTransaction />
             </Main>
             <Footer>
                 <Button>
@@ -76,7 +97,7 @@ const Header = styled.div`
     margin-top: 20px;
 `;
 
-const HeaderImg = styled.a`
+const HeaderImg = styled(Link)`
     img {
         width: 30px;
         height: 30px;
