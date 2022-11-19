@@ -129,23 +129,6 @@ export const Transactions = () => {
     );
 };
 
-const AccountBalance = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin: 15px 20px;
-`;
-
-const Label = styled.h2`
-    font-size: 17px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #121212;
-`;
-
-const Balance = styled.div`
-    color: ${props => props.status === "positive" ? "#0ec20c" : "#f50a0a"}
-`;
-
 const Header = styled.div`
     display: flex;
     align-items: center;
@@ -198,7 +181,23 @@ const Title = styled.div`
 `;
 
 const Amount = styled.div`
-    color: ${props => props.type === "inflow" ? "#0ec20c" : "#f50a0a"}
+    color: ${props => props.type === "inflow" ? "#0ec20c" : "#f50a0a"};
 `;
 
+const AccountBalance = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 20px;
+`;
+
+const Label = styled.h2`
+    font-size: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #121212;
+`;
+
+const Balance = styled.div`
+    color: ${props => props.status === "positive" ? "#0ec20c" : "#f50a0a"};
+`;
 
