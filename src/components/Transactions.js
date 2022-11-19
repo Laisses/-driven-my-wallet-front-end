@@ -2,7 +2,7 @@ import { BASE_URL } from "./constants";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./context";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Container, TransactionLoading } from "./Common";
 import logout from "../assets/images/logout.png";
