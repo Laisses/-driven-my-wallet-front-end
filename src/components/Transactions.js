@@ -9,46 +9,34 @@ import logout from "../assets/images/logout.png";
 import decrease from "../assets/images/decrease.png";
 import increase from "../assets/images/increase.png";
 
-
-/* const mockTransactions = [
-    {
-        title: "Mercado",
-        amount: "325,80",
-        date: "18/11",
-        description: "Compras no Carrefour",
-        type: "outflow"
-    },
-    {
-        title: "Salário",
-        amount: "3000,00",
-        date: "17/11",
-        description: "",
-        type: "inflow"
-    },
-    {
-        title: "Roupas",
-        amount: "256,00",
-        date: "17/11",
-        description: "",
-        type: "outflow"
-    }
-]; */
-
-const mockTransactions = [];
-
-//const mockTransactions = undefined;
-
 export const Transactions = () => {
     const { user } = useContext(AppContext);
-    const [transactions, setTransactions] = useState(mockTransactions);
+    const [transactions, setTransactions] = useState(undefined);
     const [balanceStatus, setBalanceStatus] = useState("");
     const [balance, setBalance] = useState(undefined);
 
     useEffect(() => {
+        getTransactions();
         if (transactions) {
             calculateBottomLine();
         }
-    }, []);
+    }, [setTransactions]);
+
+    const getTransactions = async () => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        };
+
+        try {
+            const dbTransactions = await axios.get(`${BASE_URL}/transactions`, config);
+            console.log(dbTransactions)
+            setTransactions(dbTransactions.data);
+        } catch(err) {
+            alert(err.response.data.message);
+        }
+    };
 
     const ListOfTransactions = ({ title, amount, date, type }) => {
         return (
@@ -63,6 +51,7 @@ export const Transactions = () => {
     };
 
     const Purchases = () => {
+        console.log(transactions)
         if (transactions === undefined) {
             return <TransactionLoading />
         } else if (transactions.length === 0) {
