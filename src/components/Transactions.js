@@ -31,7 +31,6 @@ export const Transactions = () => {
 
         try {
             const dbTransactions = await axios.get(`${BASE_URL}/transactions`, config);
-            console.log(dbTransactions)
             setTransactions(dbTransactions.data);
         } catch(err) {
             alert(err.response.data.message);
