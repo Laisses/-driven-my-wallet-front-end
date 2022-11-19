@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { Container, TransactionLoading } from "./Common";
 import logout from "../assets/images/logout.png";
 
-const mockTransactions = [
+/* const mockTransactions = [
     {
         title: "Mercado",
         amount: "325,80",
@@ -29,9 +29,9 @@ const mockTransactions = [
         description: "",
         type: "outflow"
     }
-];
+]; */
 
-//const mockTransactions = [];
+const mockTransactions = [];
 
 //const mockTransactions = undefined;
 
@@ -45,7 +45,7 @@ export const Transactions = () => {
         calculateBottomLine();
     }, []);
 
-    const ListOfTransactions = ({title, amount, date, type}) => {
+    const ListOfTransactions = ({ title, amount, date, type }) => {
         return (
             <ListItem>
                 <Purchase>
@@ -66,15 +66,21 @@ export const Transactions = () => {
             );
         } else if (transactions) {
             return (
-                <ul>
-                    {transactions.map(t => <ListOfTransactions
-                        key={t.title}
-                        title={t.title}
-                        amount={t.amount}
-                        date={t.date}
-                        type={t.type}
-                    />)}
-                </ul>
+                <>
+                    <ul>
+                        {transactions.map(t => <ListOfTransactions
+                            key={t.title}
+                            title={t.title}
+                            amount={t.amount}
+                            date={t.date}
+                            type={t.type}
+                        />)}
+                    </ul>
+                    <AccountBalance>
+                        <Label>saldo</Label>
+                        <Balance status={balanceStatus}>{balance}</Balance>
+                    </AccountBalance>
+                </>
             );
         }
     };
@@ -91,7 +97,7 @@ export const Transactions = () => {
         const filteredOutflow = transactions.filter(t => t.type === "outflow");
 
         const inflow = calculateSum(filteredInflow);
-        const outflow= calculateSum(filteredOutflow);
+        const outflow = calculateSum(filteredOutflow);
 
         const netBalance = inflow - outflow;
 
@@ -118,10 +124,6 @@ export const Transactions = () => {
             </Header>
             <Main>
                 <Purchases />
-                <AccountBalance>
-                    <Label>saldo</Label>
-                    <Balance status={balanceStatus}>{balance}</Balance>
-                </AccountBalance>
             </Main>
         </Container>
     );
