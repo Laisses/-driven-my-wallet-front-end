@@ -4,7 +4,7 @@ import { AppContext } from "./context";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Container, TransactionLoading } from "./Common";
+import { Container, TransactionLoading, BackIcon } from "./Common";
 import backIcon from "../assets/images/backIcon.png";
 import deleteIcon from "../assets/images/deleteIcon.png";
 import editIcon from "../assets/images/editIcon.png";
@@ -94,7 +94,6 @@ export const Transaction = () => {
 const Header = styled.div`
     display: flex;
     align-items: center;
-    margin-top: 20px;
 `;
 
 const HeaderImg = styled(Link)`
@@ -168,11 +167,6 @@ const Button = styled(Link)`
     div {
         width: 64px;
     }
-`;
-
-const BackIcon = styled.img`
-    width: 25px;
-    height: 25px;
 `;
 
 const DeleteIcon = styled.img`

@@ -31,6 +31,11 @@ export const Header = styled.h1`
     margin-bottom: 40px;
 `;
 
+export const NavHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
 export const Logo = styled.h1`
     font-family: 'Saira Stencil One', cursive;
     font-size: 32px;
@@ -133,4 +138,10 @@ const TransactionLoader = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 40px;
+`;
+
+export const BackIcon = styled.img`
+    margin-top: 25px;
+    width: 30px;
+    height: 30px;
 `;

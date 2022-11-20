@@ -1,10 +1,11 @@
-import { Container, Header, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading } from "./Common";
+import { Container, Header, NavHeader, BackIcon, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading } from "./Common";
 import styled from "styled-components";
 import { BASE_URL } from "./constants";
 import { useContext, useState } from "react";
 import { AppContext } from "./context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import backIcon from "../assets/images/backIcon.png";
 
 export const Outflow = () => {
     const { user } = useContext(AppContext);
@@ -20,7 +21,13 @@ export const Outflow = () => {
 
     return (
         <Container>
-            <Header>Nova saída</Header>
+            <NavHeader>
+                <Header>Nova saída</Header>
+                <BackIcon
+                    src={backIcon}
+                    alt="ícone de voltar"
+                />
+            </NavHeader>
             <Form>
             <TextLabel htmlFor="title">Título</TextLabel>
                 <TextInput

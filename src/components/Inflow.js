@@ -1,10 +1,11 @@
-import { Container, Header, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading } from "./Common";
+import { Container, Header, NavHeader, BackIcon, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading } from "./Common";
 import styled from "styled-components";
 import { BASE_URL } from "./constants";
 import { useContext, useState } from "react";
 import { AppContext } from "./context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import backIcon from "../assets/images/backIcon.png";
 
 export const Inflow = () => {
     const { user } = useContext(AppContext);
@@ -20,9 +21,15 @@ export const Inflow = () => {
 
     return (
         <Container>
-            <Header>Nova entrada</Header>
+            <NavHeader>
+                <Header>Nova entrada</Header>
+                <BackIcon
+                    src={backIcon}
+                    alt="ícone de voltar"
+                />
+            </NavHeader>
             <Form>
-            <TextLabel htmlFor="title">Título</TextLabel>
+                <TextLabel htmlFor="title">Título</TextLabel>
                 <TextInput
                     type="text"
                     id="title"
@@ -65,10 +72,10 @@ export const Inflow = () => {
                     disabled={loading}
                 />
                 <Footer>
-                {!loading
-                    ? <ConfirmationButton>Salvar entrada</ConfirmationButton>
-                    : <SmallButtonLoading />
-                }
+                    {!loading
+                        ? <ConfirmationButton>Salvar entrada</ConfirmationButton>
+                        : <SmallButtonLoading />
+                    }
                 </Footer>
             </Form>
         </Container>
@@ -78,3 +85,4 @@ export const Inflow = () => {
 const Footer = styled.div`
     margin-top: 20px;
 `;
+
