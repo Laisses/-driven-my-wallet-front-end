@@ -30,7 +30,7 @@ export const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/transactions/:id" element={<Transaction />}/>
-          <Route path="/transactions/edit/:id" element={<Edit />}/>
+          <Route path="/transactions/edit/" element={<Edit />}/>
           <Route path="/add-inflow" element={ <Inflow />} />
           <Route path="/add-outflow" element={<Outflow />} />
         </Routes>
