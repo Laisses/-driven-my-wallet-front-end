@@ -13,10 +13,7 @@ export const Inflow = () => {
     const [form, setForm] = useState({ title: "", amount: "", date: "", description: "", type: "inflow" });
     const navigate = useNavigate();
 
-    const handleDate = dateString => {
-        const date = dateString.split("-");
-        return `${date[2]}/${date[1]}`;
-    };
+
 
     const sendTransaction = async () => {
         setLoading(true);
@@ -27,10 +24,8 @@ export const Inflow = () => {
             }
         };
 
-        const body = {...form, date: handleDate(form.date)};
-
         try {
-            await axios.post(`${BASE_URL}/transactions`, body, config);
+            await axios.post(`${BASE_URL}/transactions`,form, config);
             alert("Transação cadastrada com sucesso!");
             navigate("/transactions");
             setLoading(false);

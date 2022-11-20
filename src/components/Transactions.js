@@ -38,12 +38,19 @@ export const Transactions = () => {
         navigate(`/transactions/${transaction._id}`);
     };
 
+    const handleDate = dateString => {
+        const date = dateString.split("-");
+        return `${date[2]}/${date[1]}`;
+    };
+
     const ListOfTransactions = (transaction) => {
         const {date, title, type, amount} = transaction;
+        const editedDate = handleDate(date);
+
         return (
             <ListItem onClick={() => chooseTransaction(transaction)}>
                 <Purchase>
-                    <Date>{date}</Date>
+                    <Date>{editedDate}</Date>
                     <Title>{title}</Title>
                 </Purchase>
                 <Amount type={type}>{amount}</Amount>
