@@ -50,6 +50,10 @@ export const Edit = () => {
         navigate(`/transactions/${id}`);
     }
 
+    const goToHome = () => {
+        navigate("/transactions");
+    }
+
     return (
         <Container>
             <NavHeader>
@@ -137,6 +141,8 @@ export const Edit = () => {
                         ? <ConfirmationButton>Salvar alteração</ConfirmationButton>
                         : <SmallButtonLoading />
                     }
+
+                    <ConfirmationButton onClick={goToHome}>Cancelar</ConfirmationButton>
                 </Form>
                 :
                 <EditLoading />
@@ -148,7 +154,7 @@ export const Edit = () => {
 const Text = styled.p`
     font-size: 20px;
     color: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 `;
 
 const RadioInput = styled.input`
@@ -166,7 +172,7 @@ const RadioLabel = styled.label`
 const RadioOption = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 `;
 
 const Fieldset = styled.div`
