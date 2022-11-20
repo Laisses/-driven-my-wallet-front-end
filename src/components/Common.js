@@ -23,6 +23,14 @@ export const Container = styled.div`
     flex-direction: column;
 `;
 
+export const Header = styled.h1`
+    font-size: 26px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 25px;
+    margin-bottom: 40px;
+`;
+
 export const Logo = styled.h1`
     font-family: 'Saira Stencil One', cursive;
     font-size: 32px;
