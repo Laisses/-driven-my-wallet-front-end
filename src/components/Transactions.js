@@ -12,15 +12,10 @@ import increase from "../assets/images/increase.png";
 export const Transactions = () => {
     const { user, setTransactionId } = useContext(AppContext);
     const [transactions, setTransactions] = useState(undefined);
-    const [balanceStatus, setBalanceStatus] = useState("");
-    const [balance, setBalance] = useState(undefined);
     const navigate = useNavigate();
 
     useEffect(() => {
         getTransactions();
-        if (transactions) {
-            calculateBottomLine();
-        }
     }, [setTransactions]);
 
     const getTransactions = async () => {
@@ -64,6 +59,7 @@ export const Transactions = () => {
                     entrada ou saída</Message>
             );
         } else if (transactions) {
+            const { total, status } = calculateBottomLine(transactions);
             return (
                 <>
                     <ul>
@@ -78,7 +74,7 @@ export const Transactions = () => {
                     </ul>
                     <AccountBalance>
                         <Label>saldo</Label>
-                        <Balance status={balanceStatus}>{balance}</Balance>
+                        <Balance status={status}>{total}</Balance>
                     </AccountBalance>
                 </>
             );
@@ -92,7 +88,7 @@ export const Transactions = () => {
             .reduce((acc, curr) => acc + curr, 0);
     };
 
-    const calculateBottomLine = () => {
+    const calculateBottomLine = (transactions) => {
         const filteredInflow = transactions.filter(t => t.type === "inflow");
         const filteredOutflow = transactions.filter(t => t.type === "outflow");
 
@@ -101,14 +97,10 @@ export const Transactions = () => {
 
         const netBalance = inflow - outflow;
 
-        if (netBalance >= 0) {
-            setBalanceStatus("positive");
-        } else {
-            setBalanceStatus("negative");
-        }
-
-        const total = ((netBalance / 100)).toString().replace(".", ",");
-        setBalance(total);
+        return {
+            total: ((netBalance / 100)).toString().replace(".", ","),
+            status: netBalance >= 0 ? "positive" : "negative",
+        };
     };
 
     return (
