@@ -30,9 +30,9 @@ export const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/transactions/:id" element={<Transaction />}/>
-          <Route path="/transactions/edit/:id" element={<Edit />}/>
-          <Route path="/add-inflow" element={ <Inflow />} />
-          <Route path="/add-outflow" element={<Outflow />} />
+          <Route path="/transactions/:id/edit" element={<Edit />}/>
+          <Route path="/transactions/add-inflow" element={ <Inflow />} />
+          <Route path="/transactions/add-outflow" element={<Outflow />} />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
