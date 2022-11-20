@@ -8,6 +8,7 @@ import { Transactions } from "./components/Transactions";
 import { Transaction } from "./components/Transaction";
 import { Inflow } from "./components/Inflow";
 import { Outflow } from "./components/Outflow";
+import { Edit } from "./components/Edit";
 
 export const App = () => {
   const userProfile = {
@@ -29,6 +30,7 @@ export const App = () => {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/transactions/:id" element={<Transaction />}/>
+          <Route path="/transactions/edit/:id" element={<Edit />}/>
           <Route path="/add-inflow" element={ <Inflow />} />
           <Route path="/add-outflow" element={<Outflow />} />
         </Routes>
