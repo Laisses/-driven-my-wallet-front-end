@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import backIcon from "../assets/images/backIcon.png";
 
 export const Edit = () => {
-    const { user } = useContext(AppContext);
+    const { user, transaction } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({ title: "", amount: "", date: "", description: "", type: "" });
     const navigate = useNavigate();
@@ -23,6 +23,9 @@ export const Edit = () => {
         setForm({...form, type: id})
     };
 
+    const goBack = () => {
+        navigate(`/transactions/${transaction._id}`);
+    }
 
     return (
         <Container>
@@ -31,6 +34,7 @@ export const Edit = () => {
                 <BackIcon
                     src={backIcon}
                     alt="ícone de voltar"
+                    onClick={goBack}
                 />
             </NavHeader>
             <Form>

@@ -10,8 +10,7 @@ import deleteIcon from "../assets/images/deleteIcon.png";
 import editIcon from "../assets/images/editIcon.png";
 
 export const Transaction = () => {
-    const { user, transactionId } = useContext(AppContext);
-    const [transaction, setTransaction] = useState(undefined);
+    const { user, transaction, setTransaction } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ export const Transaction = () => {
 
     const getTransaction = async () => {
         try {
-            const res = await axios.get(`${BASE_URL}/transactions/${transactionId}`, config);
+            const res = await axios.get(`${BASE_URL}/transactions/${transaction._id}`, config);
             setTransaction(res.data);
         } catch (err) {
             alert(err.response.data.message);
@@ -67,7 +66,7 @@ export const Transaction = () => {
 
         if (confirmed) {
             try {
-                await axios.delete(`${BASE_URL}/transactions/${transactionId}`, config);
+                await axios.delete(`${BASE_URL}/transactions/${transaction._id}`, config);
                 alert("Transação apagada com sucesso!");
                 setLoading(false);
                 navigate("/transactions");
@@ -79,7 +78,7 @@ export const Transaction = () => {
     };
 
     const editTransaction = () => {
-        navigate(`/transactions/${transactionId}/edit`);
+        navigate(`/transactions/${transaction._id}/edit`);
     };
 
     return (
