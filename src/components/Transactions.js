@@ -126,14 +126,14 @@ export const Transactions = () => {
                 <Purchases />
             </Main>
             <Footer>
-                <Button to="/add-inflow">
+                <Button to="/transactions/add-inflow">
                     <img
                         src={increase}
                         alt="ícone de adição"
                     />
                     <div>Nova entrada</div>
                 </Button>
-                <Button to="/add-outflow">
+                <Button to="/transactions/add-outflow">
                     <img
                         src={decrease}
                         alt="ícone de subtração"
