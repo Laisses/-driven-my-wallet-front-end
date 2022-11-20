@@ -9,12 +9,17 @@ import { useNavigate } from "react-router-dom";
 export const Edit = () => {
     const { user } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState({ title: "", amount: "", date: "", description: "" });
+    const [form, setForm] = useState({ title: "", amount: "", date: "", description: "", type: "" });
     const navigate = useNavigate();
 
     const handleForm = e => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+    };
+
+    const handleRadioButton = e => {
+        const { id } = e.target;
+        setForm({...form, type: id})
     };
 
 
@@ -67,16 +72,26 @@ export const Edit = () => {
                     <RadioOption>
                         <RadioInput
                             type="radio"
+                            id="outflow"
                             name="type"
+                            value={form.type}
+                            onClick={handleRadioButton}
+                            disabled={loading}
+                            required
                         />
-                        <RadioLabel>Entrada</RadioLabel>
+                        <RadioLabel htmlFor="outflow">Entrada</RadioLabel>
                     </RadioOption>
                     <RadioOption>
                         <RadioInput
                             type="radio"
+                            id="inflow"
                             name="type"
+                            value={form.type}
+                            onClick={handleRadioButton}
+                            disabled={loading}
+                            required
                         />
-                        <RadioLabel>Saída</RadioLabel>
+                        <RadioLabel htmlFor="inflow">Saída</RadioLabel>
                     </RadioOption>
                 </Fieldset>
 
