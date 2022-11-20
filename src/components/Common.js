@@ -170,6 +170,26 @@ const TransactionLoader = styled.div`
     margin-top: 40px;
 `;
 
+export const EditLoading = () => {
+    return (
+        <EditLoader>
+            <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="96"
+                visible={true}
+            />
+        </EditLoader>
+    );
+};
+
+const EditLoader = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+`;
+
 export const BackIcon = styled.img`
     margin-top: 25px;
     width: 30px;
