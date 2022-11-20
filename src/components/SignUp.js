@@ -20,7 +20,7 @@ export const SignUp = () => {
             await axios.post(`${BASE_URL}/sign-up`, form);
             setLoading(false);
             alert("Usuário cadastrado com sucesso!");
-            navigate("/sign-onBeforeInput={}");
+            navigate("/sign-on");
         } catch (err) {
             alert(err.response.data.message);
             setLoading(false);
