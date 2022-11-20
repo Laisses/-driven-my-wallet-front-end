@@ -11,6 +11,7 @@ export const Edit = () => {
     const { user, transaction, setTransaction } = useContext(AppContext);
     const { id } = useParams();
     const [loading, setLoading] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(true);
     const [form, setForm] = useState(transaction);
     const navigate = useNavigate();
 
@@ -36,9 +37,39 @@ export const Edit = () => {
         }
     };
 
+    const editTransaction = async () => {
+        if (buttonDisabled) {
+            alert("Faça uma alteração antes de salvar!");
+            return;
+        }
+
+        const { amount, date, description, title, type } = form;
+        const payload = {
+            amount,
+            date,
+            description,
+            title,
+            type,
+         };
+
+        setLoading(true);
+
+        try {
+            await axios.put(`${BASE_URL}/transactions/${id}`, payload, config);
+            alert("Transação editada com sucesso!");
+            navigate("/transactions");
+            setLoading(false);
+
+        } catch (err) {
+            alert(err.response.data.message);
+            setLoading(false);
+        }
+    };
+
     const handleForm = e => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+        setButtonDisabled(false);
     };
 
     const handleRadioButton = e => {
@@ -138,11 +169,20 @@ export const Edit = () => {
                     </Fieldset>
 
                     {!loading
-                        ? <ConfirmationButton>Salvar alteração</ConfirmationButton>
+                        ? <ConfirmationButton
+                            onClick={editTransaction}
+                            disabled={loading}
+                        >
+                            Salvar alteração
+                        </ConfirmationButton>
                         : <SmallButtonLoading />
                     }
 
-                    <ConfirmationButton onClick={goToHome}>Cancelar</ConfirmationButton>
+                    <ConfirmationButton
+                        onClick={goToHome}
+                        disabled={loading}>
+                        Cancelar
+                    </ConfirmationButton>
                 </Form>
                 :
                 <EditLoading />
