@@ -12,8 +12,7 @@ import editIcon from "../assets/images/editIcon.png";
 export const Transaction = () => {
     const { user, transactionId } = useContext(AppContext);
     const [transaction, setTransaction] = useState(undefined);
-    const [deleteLoading, setDeleteLoading] = useState(false);
-    const [editLoading, setEditLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -62,7 +61,7 @@ export const Transaction = () => {
     };
 
     const deleteTransaction = async () => {
-        setDeleteLoading(true);
+        setLoading(true);
 
         const confirmed = window.confirm("Você tem certeza que deseja excluir essa transação?");
 
@@ -70,17 +69,17 @@ export const Transaction = () => {
             try {
                 await axios.delete(`${BASE_URL}/transactions/${transactionId}`, config);
                 alert("Transação apagada com sucesso!");
-                setDeleteLoading(false);
+                setLoading(false);
                 navigate("/transactions");
             } catch (err) {
                 alert(err.response.data.message);
-                setDeleteLoading(false);
+                setLoading(false);
             }
         }
     };
 
     const editTransaction = () => {
-        console.log("editou")
+        navigate(`/transactions/${transactionId}/edit`);
     };
 
     return (
@@ -97,7 +96,7 @@ export const Transaction = () => {
                 <MainTransaction />
             </Main>
             <Footer>
-                {!deleteLoading
+                {!loading
                     ?
                     <Button onClick={deleteTransaction}>
                         <DeleteIcon
@@ -109,18 +108,13 @@ export const Transaction = () => {
                     :
                     <BigButtonLoading />
                 }
-                {!editLoading
-                    ?
-                    <Button onClick={editTransaction}>
-                        <EditIcon
-                            src={editIcon}
-                            alt="ícone de editar"
-                        />
-                        <div>Editar Transação</div>
-                    </Button>
-                    :
-                    <BigButtonLoading />
-                }
+                <Button onClick={editTransaction}>
+                    <EditIcon
+                        src={editIcon}
+                        alt="ícone de editar"
+                    />
+                    <div>Editar Transação</div>
+                </Button>
             </Footer>
         </Container>
     );
