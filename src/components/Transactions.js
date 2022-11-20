@@ -10,7 +10,7 @@ import decrease from "../assets/images/decrease.png";
 import increase from "../assets/images/increase.png";
 
 export const Transactions = () => {
-    const { user, setTransactionId } = useContext(AppContext);
+    const { user, setTransaction } = useContext(AppContext);
     const [transactions, setTransactions] = useState(undefined);
     const navigate = useNavigate();
 
@@ -33,14 +33,15 @@ export const Transactions = () => {
         }
     };
 
-    const chooseTransaction = id => {
-        setTransactionId(id);
-        navigate(`/transactions/${id}`);
+    const chooseTransaction = transaction => {
+        setTransaction(transaction);
+        navigate(`/transactions/${transaction._id}`);
     };
 
-    const ListOfTransactions = ({ id, title, amount, date, type }) => {
+    const ListOfTransactions = (transaction) => {
+        const {date, title, type, amount} = transaction;
         return (
-            <ListItem onClick={() => chooseTransaction(id)}>
+            <ListItem onClick={() => chooseTransaction(transaction)}>
                 <Purchase>
                     <Date>{date}</Date>
                     <Title>{title}</Title>
@@ -65,11 +66,7 @@ export const Transactions = () => {
                     <ul>
                         {transactions.map(t => <ListOfTransactions
                             key={t._id}
-                            id={t._id}
-                            title={t.title}
-                            amount={t.amount}
-                            date={t.date}
-                            type={t.type}
+                            {...t}
                         />)}
                     </ul>
                     <AccountBalance>

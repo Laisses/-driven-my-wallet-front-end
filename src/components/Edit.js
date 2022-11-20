@@ -10,7 +10,13 @@ import backIcon from "../assets/images/backIcon.png";
 export const Edit = () => {
     const { user, transaction } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState({ title: "", amount: "", date: "", description: "", type: "" });
+    const [form, setForm] = useState({
+        title: transaction.title,
+        amount: transaction.amount,
+        date: transaction.date,
+        description: transaction.description,
+        type: transaction.type
+    });
     const navigate = useNavigate();
 
     const handleForm = e => {
@@ -83,26 +89,28 @@ export const Edit = () => {
                     <RadioOption>
                         <RadioInput
                             type="radio"
-                            id="outflow"
+                            id="inflow"
                             name="type"
                             value={form.type}
-                            onClick={handleRadioButton}
+                            onChange={handleRadioButton}
                             disabled={loading}
-                            required
+                            checked={form.type === "inflow"}
+                            required="required"
                         />
-                        <RadioLabel htmlFor="outflow">Entrada</RadioLabel>
+                        <RadioLabel htmlFor="inflow">Entrada</RadioLabel>
                     </RadioOption>
                     <RadioOption>
                         <RadioInput
                             type="radio"
-                            id="inflow"
+                            id="outflow"
                             name="type"
                             value={form.type}
-                            onClick={handleRadioButton}
+                            onChange={handleRadioButton}
                             disabled={loading}
+                            checked={form.type === "outflow"}
                             required
                         />
-                        <RadioLabel htmlFor="inflow">Saída</RadioLabel>
+                        <RadioLabel htmlFor="outflow">Saída</RadioLabel>
                     </RadioOption>
                 </Fieldset>
 

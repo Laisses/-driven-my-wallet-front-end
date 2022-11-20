@@ -2,7 +2,7 @@ import { BASE_URL } from "./constants";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./context";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Container, TransactionLoading, BigButtonLoading, BackIcon } from "./Common";
 import backIcon from "../assets/images/backIcon.png";
@@ -11,11 +11,14 @@ import editIcon from "../assets/images/editIcon.png";
 
 export const Transaction = () => {
     const { user, transaction, setTransaction } = useContext(AppContext);
+    const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        getTransaction();
+        if (!transaction) {
+            getTransaction();
+        }
     }, []);
 
     const config = {
@@ -26,7 +29,7 @@ export const Transaction = () => {
 
     const getTransaction = async () => {
         try {
-            const res = await axios.get(`${BASE_URL}/transactions/${transaction._id}`, config);
+            const res = await axios.get(`${BASE_URL}/transactions/${id}`, config);
             setTransaction(res.data);
         } catch (err) {
             alert(err.response.data.message);
