@@ -120,6 +120,36 @@ const SmallButtonLoader = styled.div`
     border-radius: 5px;
 `;
 
+export const BigButtonLoading = () => {
+    return (
+        <BigButtonLoader>
+            <RotatingLines
+                strokeColor="white"
+                strokeWidth="5"
+                animationDuration="0.75"
+                width="56"
+                visible={true}
+            />
+        </BigButtonLoader>
+    );
+};
+
+const BigButtonLoader = styled.div`
+    width: 155px;
+    height: 115px;
+    margin-top: 15px;
+    font-size: 17px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #A328D6;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
 export const TransactionLoading = () => {
     return (
         <TransactionLoader>

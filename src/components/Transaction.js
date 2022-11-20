@@ -2,9 +2,9 @@ import { BASE_URL } from "./constants";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "./context";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Container, TransactionLoading, BackIcon } from "./Common";
+import { Container, TransactionLoading, BigButtonLoading, BackIcon } from "./Common";
 import backIcon from "../assets/images/backIcon.png";
 import deleteIcon from "../assets/images/deleteIcon.png";
 import editIcon from "../assets/images/editIcon.png";
@@ -12,25 +12,28 @@ import editIcon from "../assets/images/editIcon.png";
 export const Transaction = () => {
     const { user, transactionId } = useContext(AppContext);
     const [transaction, setTransaction] = useState(undefined);
+    const [deleteLoading, setDeleteLoading] = useState(false);
+    const [editLoading, setEditLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getTransaction();
     }, []);
 
-    const getTransaction = async () => {
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`
-            }
-        };
+    const config = {
+        headers: {
+            Authorization: `Bearer ${user.token}`
+        }
+    };
 
+    const getTransaction = async () => {
         try {
             const res = await axios.get(`${BASE_URL}/transactions/${transactionId}`, config);
             setTransaction(res.data);
         } catch (err) {
             alert(err.response.data.message);
         }
-    }
+    };
 
     const selectType = (type) => {
         if (type === "outflow") {
@@ -58,6 +61,28 @@ export const Transaction = () => {
         }
     };
 
+    const deleteTransaction = async () => {
+        setDeleteLoading(true);
+
+        const confirmed = window.confirm("Você tem certeza que deseja excluir essa transação?");
+
+        if (confirmed) {
+            try {
+                await axios.delete(`${BASE_URL}/transactions/${transactionId}`, config);
+                alert("Transação apagada com sucesso!");
+                setDeleteLoading(false);
+                navigate("/transactions");
+            } catch (err) {
+                alert(err.response.data.message);
+                setDeleteLoading(false);
+            }
+        }
+    };
+
+    const editTransaction = () => {
+        console.log("editou")
+    };
+
     return (
         <Container>
             <Header>
@@ -72,20 +97,30 @@ export const Transaction = () => {
                 <MainTransaction />
             </Main>
             <Footer>
-                <Button>
-                    <DeleteIcon
-                        src={deleteIcon}
-                        alt="ícone de deletar"
-                    />
-                    <div>Excluir transação</div>
-                </Button>
-                <Button>
-                    <EditIcon
-                        src={editIcon}
-                        alt="ícone de editar"
-                    />
-                    <div>Editar Transação</div>
-                </Button>
+                {!deleteLoading
+                    ?
+                    <Button onClick={deleteTransaction}>
+                        <DeleteIcon
+                            src={deleteIcon}
+                            alt="ícone de deletar"
+                        />
+                        <div>Excluir transação</div>
+                    </Button>
+                    :
+                    <BigButtonLoading />
+                }
+                {!editLoading
+                    ?
+                    <Button onClick={editTransaction}>
+                        <EditIcon
+                            src={editIcon}
+                            alt="ícone de editar"
+                        />
+                        <div>Editar Transação</div>
+                    </Button>
+                    :
+                    <BigButtonLoading />
+                }
             </Footer>
         </Container>
     );
@@ -149,7 +184,7 @@ const Footer = styled.div`
     align-items: center;
 `;
 
-const Button = styled(Link)`
+const Button = styled.div`
     width: 155px;
     height: 115px;
     margin-top: 15px;
