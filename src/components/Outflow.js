@@ -10,12 +10,43 @@ import backIcon from "../assets/images/backIcon.png";
 export const Outflow = () => {
     const { user } = useContext(AppContext);
     const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState({ title: "", amount: "", date: "", description: "" });
+    const [form, setForm] = useState({ title: "", amount: "", date: "", description: "", type:"outflow" });
     const navigate = useNavigate();
+
+    const handleDate = dateString => {
+        const date = dateString.split("-");
+        return `${date[2]}/${date[1]}`;
+    };
+
+    const sendTransaction = async () => {
+        setLoading(true);
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        };
+
+        const body = {...form, date: handleDate(form.date)};
+
+        try {
+            await axios.post(`${BASE_URL}/transactions`, body, config);
+            alert("Transação cadastrada com sucesso!");
+            navigate("/transactions");
+            setLoading(false);
+        } catch(err) {
+            alert(err.response.data.message);
+            setLoading(false);
+        }
+    };
 
     const handleForm = e => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+    };
+
+    const goBack = () => {
+        navigate("/transactions");
     };
 
 
@@ -26,6 +57,7 @@ export const Outflow = () => {
                 <BackIcon
                     src={backIcon}
                     alt="ícone de voltar"
+                    onClick={goBack}
                 />
             </NavHeader>
             <Form>
@@ -72,7 +104,7 @@ export const Outflow = () => {
                     disabled={loading}
                 /><Footer>
                 {!loading
-                    ? <ConfirmationButton>Salvar saída</ConfirmationButton>
+                    ? <ConfirmationButton onClick={sendTransaction}>Salvar saída</ConfirmationButton>
                     : <SmallButtonLoading />
                 }
                 </Footer>
