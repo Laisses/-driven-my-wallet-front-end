@@ -11,12 +11,7 @@ import { Outflow } from "./components/Outflow";
 import { Edit } from "./components/Edit";
 
 export const App = () => {
-  const userProfile = {
-    username: "Anita",
-    token: "7d00b82c-0c94-469e-85f1-535672e3fa1b",
-  };
-
-  const [user, setUser] = useState(userProfile);
+  const [user, setUser] = useState(undefined);
   const [transaction, setTransaction] = useState(undefined);
 
   return (

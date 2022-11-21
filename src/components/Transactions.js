@@ -10,7 +10,7 @@ import decrease from "../assets/images/decrease.png";
 import increase from "../assets/images/increase.png";
 
 export const Transactions = () => {
-    const { user, setTransaction } = useContext(AppContext);
+    const { user, setUser, setTransaction } = useContext(AppContext);
     const [transactions, setTransactions] = useState(undefined);
     const navigate = useNavigate();
 
@@ -74,7 +74,7 @@ export const Transactions = () => {
     };
 
     const Purchases = () => {
-        if (transactions === undefined) {
+        if (!transactions) {
             return <TransactionLoading />
         } else if (transactions.length === 0) {
             return (
@@ -122,6 +122,21 @@ export const Transactions = () => {
         };
     };
 
+    const logoutFn = async () => {
+        try {
+            setTransactions(null);
+            await axios.delete(`${BASE_URL}/session`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
+        } finally {
+            navigate("/sign-in");
+            setUser(null);
+        }
+
+    };
+
     return (
         <Container>
             <Header>
@@ -129,6 +144,7 @@ export const Transactions = () => {
                 <HeaderImg>
                     <img
                         src={logout}
+                        onClick={logoutFn}
                         alt="ícone para deslogar"
                     />
                 </HeaderImg>
