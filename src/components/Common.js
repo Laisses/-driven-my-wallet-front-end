@@ -28,7 +28,7 @@ export const Header = styled.h1`
     font-weight: bold;
     color: #ffffff;
     margin-top: 25px;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
 `;
 
 export const NavHeader = styled.div`
@@ -75,7 +75,7 @@ export const TextLabel = styled.label`
 
 export const ConfirmationButton = styled.button`
     width: 326px;
-    height: 42px;
+    height: 38px;
     color: #ffffff;
     font-size: 18px;
     font-weight: bold;
@@ -195,4 +195,10 @@ export const BackIcon = styled.img`
     margin-top: 25px;
     width: 30px;
     height: 30px;
+`;
+
+export const Example = styled.p`
+    font-size: 16px;
+    color: #ffffff;
+    margin-bottom: 6px;
 `;

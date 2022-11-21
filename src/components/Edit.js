@@ -1,4 +1,4 @@
-import { Container, Header, NavHeader, BackIcon, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading, EditLoading } from "./Common";
+import { Container, Header, NavHeader, BackIcon, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading, EditLoading, Example } from "./Common";
 import styled from "styled-components";
 import { BASE_URL } from "./constants";
 import { useContext, useState, useEffect } from "react";
@@ -37,6 +37,11 @@ export const Edit = () => {
         }
     };
 
+    const handleCurrency = string => {
+        const regex = /^[0-9]+(\,[0-9]{1,2})?$/;
+        return regex.test(string);
+    };
+
     const editTransaction = async () => {
         if (buttonDisabled) {
             alert("Faça uma alteração antes de salvar!");
@@ -50,18 +55,25 @@ export const Edit = () => {
             description,
             title,
             type,
-         };
+        };
 
         setLoading(true);
 
-        try {
-            await axios.put(`${BASE_URL}/transactions/${id}`, payload, config);
-            alert("Transação editada com sucesso!");
-            navigate("/transactions");
-            setLoading(false);
+        const validatedCurrency = handleCurrency(payload.amount);
 
-        } catch (err) {
-            alert(err.response.data.message);
+        if (validatedCurrency) {
+            try {
+                await axios.put(`${BASE_URL}/transactions/${id}`, payload, config);
+                alert("Transação editada com sucesso!");
+                navigate("/transactions");
+                setLoading(false);
+
+            } catch (err) {
+                alert(err.response.data.message);
+                setLoading(false);
+            }
+        } else {
+            alert("O valor deve estar no formato correto!");
             setLoading(false);
         }
     };
@@ -109,6 +121,7 @@ export const Edit = () => {
                         required
                     />
                     <TextLabel htmlFor="amount">Valor</TextLabel>
+                    <Example>Não utilize ponto: ex. 1000,00</Example>
                     <TextInput
                         type="text"
                         id="amount"

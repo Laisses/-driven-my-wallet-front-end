@@ -1,4 +1,4 @@
-import { Container, Header, NavHeader, BackIcon, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading } from "./Common";
+import { Container, Header, NavHeader, BackIcon, Form, TextInput, TextLabel, ConfirmationButton, SmallButtonLoading, Example } from "./Common";
 import styled from "styled-components";
 import { BASE_URL } from "./constants";
 import { useContext, useState } from "react";
@@ -13,7 +13,10 @@ export const Inflow = () => {
     const [form, setForm] = useState({ title: "", amount: "", date: "", description: "", type: "inflow" });
     const navigate = useNavigate();
 
-
+    const handleCurrency = string => {
+        const regex = /^[0-9]+(\,[0-9]{1,2})?$/;
+        return regex.test(string);
+    };
 
     const sendTransaction = async () => {
         setLoading(true);
@@ -24,13 +27,20 @@ export const Inflow = () => {
             }
         };
 
-        try {
-            await axios.post(`${BASE_URL}/transactions`,form, config);
-            alert("Transação cadastrada com sucesso!");
-            navigate("/transactions");
-            setLoading(false);
-        } catch(err) {
-            alert(err.response.data.message);
+        const validatedCurrency = handleCurrency(form.amount);
+
+        if(validatedCurrency) {
+            try {
+                await axios.post(`${BASE_URL}/transactions`,form, config);
+                alert("Transação cadastrada com sucesso!");
+                navigate("/transactions");
+                setLoading(false);
+            } catch(err) {
+                alert(err.response.data.message);
+                setLoading(false);
+            }
+        } else {
+            alert("O valor deve estar no formato correto!");
             setLoading(false);
         }
     };
@@ -67,6 +77,7 @@ export const Inflow = () => {
                     required
                 />
                 <TextLabel htmlFor="amount">Valor</TextLabel>
+                <Example>Não utilize ponto: ex. 1000,00</Example>
                 <TextInput
                     type="text"
                     id="amount"
@@ -111,4 +122,6 @@ export const Inflow = () => {
 const Footer = styled.div`
     margin-top: 20px;
 `;
+
+
 
