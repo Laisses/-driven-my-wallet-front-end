@@ -43,9 +43,24 @@ export const Transactions = () => {
         return `${date[2]}/${date[1]}`;
     };
 
+    const handleCurrency = string => {
+        const hasComma = string.includes(",");
+
+        if (!hasComma) {
+            return `${string},00`;
+        } else {
+            if (string.indexOf(",") === string.length - 2) {
+                return `${string}0`;
+            } else {
+                return string;
+            }
+        }
+    };
+
     const ListOfTransactions = (transaction) => {
         const {date, title, type, amount} = transaction;
         const editedDate = handleDate(date);
+        const editedAmount = handleCurrency(amount);
 
         return (
             <ListItem onClick={() => chooseTransaction(transaction)}>
@@ -53,7 +68,7 @@ export const Transactions = () => {
                     <Date>{editedDate}</Date>
                     <Title>{title}</Title>
                 </Purchase>
-                <Amount type={type}>{amount}</Amount>
+                <Amount type={type}>{editedAmount}</Amount>
             </ListItem>
         );
     };
@@ -102,7 +117,7 @@ export const Transactions = () => {
         const netBalance = inflow - outflow;
 
         return {
-            total: ((netBalance / 100)).toString().replace(".", ","),
+            total: handleCurrency(((netBalance / 100)).toString().replace(".", ",")),
             status: netBalance >= 0 ? "positive" : "negative",
         };
     };
@@ -206,7 +221,7 @@ const Amount = styled.div`
 const AccountBalance = styled.div`
     display: flex;
     justify-content: space-between;
-    margin: 15px 20px;
+    margin: 20px 10px;
 `;
 
 const Label = styled.h2`
