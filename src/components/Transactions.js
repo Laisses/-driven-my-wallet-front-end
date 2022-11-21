@@ -85,12 +85,12 @@ export const Transactions = () => {
             const { total, status } = calculateBottomLine(transactions);
             return (
                 <>
-                    <ul>
+                    <List>
                         {transactions.map(t => <ListOfTransactions
                             key={t._id}
                             {...t}
                         />)}
-                    </ul>
+                    </List>
                     <AccountBalance>
                         <Label>saldo</Label>
                         <Balance status={status}>{total}</Balance>
@@ -221,7 +221,7 @@ const Amount = styled.div`
 const AccountBalance = styled.div`
     display: flex;
     justify-content: space-between;
-    margin: 20px 10px;
+    margin:  30px 10px 20px 10px;
 `;
 
 const Label = styled.h2`
@@ -263,4 +263,8 @@ const Button = styled(Link)`
     div {
         width: 64px;
     }
+`;
+
+const List = styled.ul`
+    overflow-y: scroll;
 `;
