@@ -131,7 +131,7 @@ export const Transactions = () => {
                 }
             });
         } finally {
-            navigate("/sign-in");
+            navigate("/");
             setUser(null);
         }
 

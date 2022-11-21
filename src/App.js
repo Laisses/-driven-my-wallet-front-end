@@ -22,7 +22,7 @@ export const App = () => {
         <GlobalStyle />
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/" element={<SignIn />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="/transactions/:id" element={<Transaction />}/>
           <Route path="/transactions/:id/edit" element={<Edit />}/>
