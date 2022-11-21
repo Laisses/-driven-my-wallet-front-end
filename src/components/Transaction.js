@@ -44,13 +44,29 @@ export const Transaction = () => {
         }
     };
 
+    const handleCurrency = string => {
+        const hasComma = string.includes(",");
+
+        if (!hasComma) {
+            return `${string},00`;
+        } else {
+            if (string.indexOf(",") === string.length - 2) {
+                return `${string}0`;
+            } else {
+                return string;
+            }
+        }
+    };
+
     const MainTransaction = () => {
+
+        const editedAmount = handleCurrency(transaction.amount);
         if (transaction) {
             return (
                 <>
                     <Title>{transaction.title}</Title>
                     <Date>{transaction.date}</Date>
-                    <Amount>R$ {transaction.amount}</Amount>
+                    <Amount>R$ {editedAmount}</Amount>
                     <Description>{transaction.description}</Description>
                     <Type>
                         Tipo de operação:{selectType(transaction.type)}
