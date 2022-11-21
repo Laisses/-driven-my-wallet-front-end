@@ -60,8 +60,8 @@ export const Transaction = () => {
 
     const MainTransaction = () => {
 
-        const editedAmount = handleCurrency(transaction.amount);
         if (transaction) {
+            const editedAmount = handleCurrency(transaction.amount);
             return (
                 <>
                     <Title>{transaction.title}</Title>
